@@ -1,0 +1,93 @@
+body{
+    background-color: rgb(16, 15, 15);
+    color: gainsboro;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    border-bottom: 1px solid rgba(220, 220, 220, 0.301);
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding: .75em;
+    margin: .25em;
+}
+.nav-btn{
+    padding: .75rem;
+    margin: .5rem;
+    cursor: pointer;
+    border-radius: 0;
+    border: 0px solid rgb(16, 15, 15);
+    background-color: rgb(16, 15, 15);
+    color: gainsboro;
+    text-align: center;
+    /* border: 2px solid green; */
+}
+
+#left-section{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px solid blue; */
+}
+
+#right-section{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px solid  white; */
+    margin-left: auto;
+    /* visibility: hidden; */
+}
+
+main{
+    /* border: 2px solid yellow; */
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    align-items: center;
+    /* margin-left: 10%;
+    margin-right: 10%; */
+    margin: auto;
+    padding: 1em;
+}
+
+#grid{
+    /* border: 2px solid chocolate; */
+    width: 50%;
+    padding: .75rem;
+    margin: .75rem;
+}
+.row{
+    display: flex;
+}
+.cell{
+    border: 2px solid rgba(220, 220, 220, 0.578);
+    height: 40px;
+    width: 25%;
+    margin: .05rem;
+}
+
+#keyboard{
+    /* border: 2px solid purple; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.keyinput{
+    background-color:  rgb(38, 38, 38);
+    padding: .5em;
+    margin: .2em;
+    text-align: center;
+    color: gainsboro;
+    border: 0px solid rgb(16, 15, 15);
+    cursor: pointer;
+}
+
+
+
+
+
+
