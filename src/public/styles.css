@@ -66,6 +66,9 @@ main{
     height: 40px;
     width: 25%;
     margin: .05rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #keyboard{
