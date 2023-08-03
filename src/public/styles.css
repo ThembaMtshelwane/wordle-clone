@@ -71,6 +71,14 @@ main{
     align-items: center;
 }
 
+.cell-colour-green{
+    background-color: rgba(30, 162, 30, 0.653);
+}
+.cell-colour-yellow{
+    background-color: rgba(237, 237, 33, 0.824);
+}
+
+
 #keyboard{
     /* border: 2px solid purple; */
     display: flex;
