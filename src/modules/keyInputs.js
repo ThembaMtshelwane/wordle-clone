@@ -3,13 +3,11 @@ const keyboardPressed = document.querySelector('body') // Allow press keys to be
 const gridFromHTML = document.querySelectorAll('.cell') // Get all the cells of the grid
 
 const dictionary = [
-    "aahed","aalii","aapas","aargh","aarti","abaca","abaci","abacs","abaft","abaht","abaka","abamp","aband","abash","abask","abaya","abbas","abbed","abbes","abcee","abeam","abear","abeat","abeer","abele","abeng","abers","abets","abeys","abies","abius","abjad","abjud","abler","ables","ablet","ablow","abmho","abnet","abohm","aboil","aboma","aboon","abord","abore","aborn","abram","abray","abrim","abrin","abris","absey","absit","abuna","abune","abura","aburn","abuts","abuzz","abyes","abysm","acais","acara","acari","accas","accha","accoy","accra",
-]
+    'apple','gates','nylon','ureas','ahead',
+   ]
 let guessedWord = []
 let guessedWord_processed = ''
 const targetWord = dictionary[0] // Use Date object to genetae a word every day
-
-let allMatches =[0,1,2,3,4]
 
 const MAX_NUMBER_OF_LETTERS =5
 const MAX_NUMBER_OF_TRIES =6
@@ -63,47 +61,7 @@ const gridEntry = (entry) =>{
     }
     // At enter: i)Check if word is 5 letters ii) submit word
     else if ( entry==='Enter') {
-        if(letter_postion === MAX_NUMBER_OF_LETTERS && try_position < MAX_NUMBER_OF_TRIES-1){
-            // check if word exists
-            if(dictionary.includes(guessedWord_processed)){
-                // is correct
-                if(targetWord===guessedWord_processed){
-                  // all green,end game
-                  addColour(try_position,allMatches,'green')
-                  console.log('Correct, you win')
-                  isGameOver = true
-
-                }else if (yellowMatches(guessedWord_processed).status) {
-                    // add yellow
-                    addColour(try_position,yellowMatches(guessedWord_processed).yellowIndices,'yellow')
-                    console.log('turn these yellow ',yellowMatches(guessedWord_processed).yellowIndices)
-                    goToNextRow()
-                } else if (greenMatches(guessedWord_processed).status) {
-                    // add green
-                    addColour(try_position,greenMatches(guessedWord_processed).grayIndices,'green')
-                    console.log('turn these green ',greenMatches(guessedWord_processed).grayIndices)
-                    goToNextRow()
-                } else{
-                    goToNextRow()
-                }
-
-            }else{
-                console.log('word does not exists')
-            }
-
- 
-        }else if(letter_postion < MAX_NUMBER_OF_LETTERS){
-            // alert not enough letters
-            console.log('not enough letters')
-        }else if(try_position >= MAX_NUMBER_OF_TRIES-1){
-            //submit answer
-            // Out of tries
-            console.log('Out of tries')
-        }else{
-            // inavlid
-            console.log('INVALID')
-        }
-
+        checkIfValidGuess(guessedWord_processed)
     }// At backspace remove a character/letter
     else if(entry ==='Backspace'){
         if(letter_postion>0){ // rest the letter counter
@@ -115,7 +73,7 @@ const gridEntry = (entry) =>{
     }
 }
 
-// * * * * * * * * * Manipulate Grid * * * * * * * * * 
+// * * *  * * * * FrontEnd Functions to Manipulate Grid * * * * * * * * * 
 
 const grid = getGrid()
 
@@ -143,18 +101,75 @@ const removeLetters = (current_try,current_index) =>{
         guessedWord.pop()
     }
 }
-
+// Change cell background colour
 const addColour = (current_try,indexArray,colour) =>{
     for (let i = 0; i < indexArray.length; i++) {
         grid[current_try][indexArray[i]].classList.add(`cell-colour-${colour}`);
     }
 }
-// Try again in next row
+// Move to following row
 const goToNextRow =()=>{
     // Go the next row and try again
     try_position++    
     letter_postion=0
     guessedWord =[]
+}
+
+// * * * * * * * * * Word must be 5 letters and you have only 6 tries * * * * * * * * *
+const checkIfValidGuess=(word)=>{
+    if(letter_postion === MAX_NUMBER_OF_LETTERS && try_position < MAX_NUMBER_OF_TRIES-1){
+        checkIfWordExists(word)
+
+    }else if(letter_postion < MAX_NUMBER_OF_LETTERS){
+        // alert not enough letters
+        console.log('not enough letters')
+        alert('Not enough letters')
+    }else if(try_position >= MAX_NUMBER_OF_TRIES-1){
+        //submit answer
+        // Out of tries
+        console.log('Out of tries')
+        alert('Out of tries')
+    }else{
+        // inavlid
+        console.log('INVALID')
+        alert('INVALID')
+    }
+}
+
+// * * * * * * * * * Does the word exists in the dictionary * * * * * * * * *
+const checkIfWordExists =(word)=>{
+ // check if word exists
+ if(dictionary.includes(word)){
+    checkCorrectness(word)
+ }else{
+     console.log('word does not exists')
+     alert('Word does not exists')
+ }
+}
+
+// * * * * * * * * * How close is the guess to being correct * * * * * * * * * 
+const checkCorrectness = (word)=>{
+    // is correct
+    if(targetWord===word){
+      // all green,end game
+      let allMatches =[0,1,2,3,4]
+      addColour(try_position,allMatches,'green')
+      console.log('Correct, you win')
+      alert('Correct, you win')
+      isGameOver = true
+    }else if (yellowMatches(word).status) {
+        // add yellow
+        addColour(try_position,yellowMatches(word).yellowIndices,'yellow')
+        console.log('turn these yellow ',yellowMatches(word).yellowIndices)
+        goToNextRow()
+    } else if (greenMatches(word).status) {
+        // add green
+        addColour(try_position,greenMatches(word).grayIndices,'green')
+        console.log('turn these green ',greenMatches(word).grayIndices)
+        goToNextRow()
+    } else{
+        goToNextRow()
+    }
 }
 
 // * * * * * * * * * Matches * * * * * * * * * 
@@ -168,7 +183,6 @@ const yellowMatches = (word)=>{
             yellowIndices.push(i)
         }                
     }
-
     return {status, yellowIndices}
 }
 
@@ -182,6 +196,5 @@ const greenMatches = (word)=>{
             greenIndices.push(i)
         }                
     }
-
     return {status, grayIndices}
 }
