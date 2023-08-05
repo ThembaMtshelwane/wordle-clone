@@ -4,6 +4,7 @@ body{
     font-size: 16px;
     margin: 0;
     padding: 0;
+    font-family: 'Libre Franklin', sans-serif;
 }
 
 nav{
@@ -97,8 +98,13 @@ main{
     cursor: pointer;
 }
 
+.keyboard-colour-yellow{
+    background-color: rgba(237, 237, 33, 0.824);
+}
 
-
+.keyboard-colour-green{
+    background-color: rgba(30, 162, 30, 0.653);
+}
 
 
 

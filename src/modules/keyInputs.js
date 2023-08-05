@@ -3,7 +3,7 @@ const keyboardPressed = document.querySelector('body') // Allow press keys to be
 const gridFromHTML = document.querySelectorAll('.cell') // Get all the cells of the grid
 
 const dictionary = [
-    'apple','gates','nylon','ureas','ahead',
+    'apple','gates','nylon','ureas','ahead','apods'
    ]
 let guessedWord = []
 let guessedWord_processed = ''
@@ -102,11 +102,23 @@ const removeLetters = (current_try,current_index) =>{
     }
 }
 // Change cell background colour
-const addColour = (current_try,indexArray,colour) =>{
+const addColourOnGrid = (current_try,indexArray,addColour,rmvColour) =>{
     for (let i = 0; i < indexArray.length; i++) {
-        grid[current_try][indexArray[i]].classList.add(`cell-colour-${colour}`);
+        grid[current_try][indexArray[i]].classList.remove(`cell-colour-${rmvColour}`);
+        grid[current_try][indexArray[i]].classList.add(`cell-colour-${addColour}`);
     }
 }
+// Change virtual keyboard letter colour
+const addColourOnKeyboard = (changeLetterString,addColour,rmvColour) =>{
+    // console.log('letters to change',changeLetterString)
+    for (let i = 0; i < keyboardClicked.length; i++) {
+        if (changeLetterString.toUpperCase().includes(keyboardClicked[i].textContent)) {
+            keyboardClicked[i].classList.remove(`keyboard-colour-${rmvColour}`)
+            keyboardClicked[i].classList.add(`keyboard-colour-${addColour}`)
+        }
+    }
+}
+
 // Move to following row
 const goToNextRow =()=>{
     // Go the next row and try again
@@ -149,52 +161,63 @@ const checkIfWordExists =(word)=>{
 
 // * * * * * * * * * How close is the guess to being correct * * * * * * * * * 
 const checkCorrectness = (word)=>{
+
+    if (yellowMatches(word).status) {
+        // add yellow
+        addColourOnGrid(try_position,yellowMatches(word).yellowIndices,'yellow','yellow')
+        addColourOnKeyboard(yellowMatches(word).yellowLetters,'yellow','yellow') 
+        console.log('turn these yellow ',yellowMatches(word).yellowIndices)
+        // goToNextRow()
+     }
+    if (greenMatches(word).status) {
+        // add green
+        addColourOnGrid(try_position,greenMatches(word).greenIndices,'green','yellow')
+        addColourOnKeyboard(greenMatches(word).greenLetters,'green','yellow')
+        console.log('turn these green ',greenMatches(word).greenIndices)
+        // goToNextRow()
+    }
     // is correct
     if(targetWord===word){
-      // all green,end game
-      let allMatches =[0,1,2,3,4]
-      addColour(try_position,allMatches,'green')
-      console.log('Correct, you win')
-      alert('Correct, you win')
-      isGameOver = true
-    }else if (yellowMatches(word).status) {
-        // add yellow
-        addColour(try_position,yellowMatches(word).yellowIndices,'yellow')
-        console.log('turn these yellow ',yellowMatches(word).yellowIndices)
+        // all green,end game
+        let allMatches =[0,1,2,3,4]
+        addColourOnGrid(try_position,allMatches,'green','yellow')
+        addColourOnKeyboard(word,'green','yellow')
+        console.log('Correct, you win')
+        alert('Correct, you win')
+        isGameOver = true
+    } 
+    //else{
         goToNextRow()
-    } else if (greenMatches(word).status) {
-        // add green
-        addColour(try_position,greenMatches(word).grayIndices,'green')
-        console.log('turn these green ',greenMatches(word).grayIndices)
-        goToNextRow()
-    } else{
-        goToNextRow()
-    }
+    // }
 }
 
 // * * * * * * * * * Matches * * * * * * * * * 
 const yellowMatches = (word)=>{
     let yellowIndices =[]
+    let yellowLetters =''
     let status = false
 
     for (let i = 0; i < MAX_NUMBER_OF_LETTERS; i++) {
         if(targetWord.includes(word[i])){
             status = true
             yellowIndices.push(i)
+            yellowLetters = yellowLetters+word[i]
         }                
     }
-    return {status, yellowIndices}
+    return {status, yellowIndices, yellowLetters}
 }
 
 const greenMatches = (word)=>{
     let greenIndices =[]
+    let greenLetters =''
     let status = false
 
     for (let i = 0; i < MAX_NUMBER_OF_LETTERS; i++) {
         if(targetWord[i]===(word[i])){
             status = true
             greenIndices.push(i)
+            greenLetters=greenLetters+word[i]
         }                
     }
-    return {status, grayIndices}
+    return {status, greenIndices,greenLetters}
 }
