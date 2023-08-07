@@ -72,6 +72,9 @@ main{
     align-items: center;
 }
 
+.cell-colour-gray{
+    background-color: rgba(48, 48, 48, 0.824);
+}
 .cell-colour-green{
     background-color: rgba(30, 162, 30, 0.653);
 }
@@ -98,12 +101,17 @@ main{
     cursor: pointer;
 }
 
+
 .keyboard-colour-yellow{
     background-color: rgba(237, 237, 33, 0.824);
 }
 
 .keyboard-colour-green{
     background-color: rgba(30, 162, 30, 0.653);
+}
+
+.keyboard-colour-gray{
+    background-color: rgba(112, 112, 112, 0.847);
 }
 
 

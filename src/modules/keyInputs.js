@@ -2,12 +2,25 @@ const keyboardClicked = document.querySelectorAll('.keyinput') // Allow click to
 const keyboardPressed = document.querySelector('body') // Allow press keys to be activated anywhere on the page
 const gridFromHTML = document.querySelectorAll('.cell') // Get all the cells of the grid
 
-const dictionary = [
-    'apple','gates','nylon','ureas','ahead','apods'
-   ]
+// const dictionary = [
+//     'apple','gates','nylon','ureas','ahead','apods','ttttt'
+//    ]
 let guessedWord = []
 let guessedWord_processed = ''
-const targetWord = dictionary[0] // Use Date object to genetae a word every day
+let targetWord =''
+
+
+const getTargetWord = ()=>{
+    fetch('http://localhost:1999/word')
+        .then(response => response.json())
+        .then(json =>{
+            targetWord = json  
+            console.log(targetWord) 
+            // dictionary.push(targetWord)
+        })
+        .catch(err => console.log(err) )
+}
+getTargetWord()
 
 const MAX_NUMBER_OF_LETTERS =5
 const MAX_NUMBER_OF_TRIES =6
@@ -16,7 +29,7 @@ let try_position =0
 
 let isGameOver = false
 
-// Structre grid div into a 2D array
+// Structure grid div into a 2D array
 const getGrid = ()=>{
     let grid =[[],[],[],[],[],[]]
     let counter =0;
@@ -34,7 +47,14 @@ const getGrid = ()=>{
     }
     return grid
 }
-
+// get based indices
+const basedIndices = ()=>{
+    let base =[]
+    for (let i = 0; i < MAX_NUMBER_OF_LETTERS; i++) {
+        base.push(i);
+    }
+    return base
+}
 //* * * * * * * Press and Click keybaord inputs * * * * * * * 
 
 // Use mouse to click the virtual keybaord
@@ -151,16 +171,32 @@ const checkIfValidGuess=(word)=>{
 // * * * * * * * * * Does the word exists in the dictionary * * * * * * * * *
 const checkIfWordExists =(word)=>{
  // check if word exists
- if(dictionary.includes(word)){
-    checkCorrectness(word)
- }else{
-     console.log('word does not exists')
-     alert('Word does not exists')
- }
+ fetch(`http://localhost:1999/check?word=${word}`)
+    .then(response => response.json())
+    .then(json =>{ 
+        console.log(json) 
+        if(json ==='SUCCESS'){
+            checkCorrectness(word)
+        }else{
+            console.log('word does not exists')
+            alert('Word does not exists')
+        }
+    })
+    .catch(err => console.log(err) )
+
+//  if(dictionary.includes(word)){
+//     checkCorrectness(word)
+//  }else{
+//      console.log('word does not exists')
+//      alert('Word does not exists')
+//  }
 }
 
 // * * * * * * * * * How close is the guess to being correct * * * * * * * * * 
 const checkCorrectness = (word)=>{
+
+    addColourOnGrid(try_position,noMatches(word).wrongIndices,'gray','yellow')
+    addColourOnKeyboard(noMatches(word).wrongLetters,'gray','yellow') 
 
     if (yellowMatches(word).status) {
         // add yellow
@@ -179,16 +215,17 @@ const checkCorrectness = (word)=>{
     // is correct
     if(targetWord===word){
         // all green,end game
-        let allMatches =[0,1,2,3,4]
+        const allMatches =basedIndices()
         addColourOnGrid(try_position,allMatches,'green','yellow')
         addColourOnKeyboard(word,'green','yellow')
         console.log('Correct, you win')
         alert('Correct, you win')
         isGameOver = true
     } 
-    //else{
-        goToNextRow()
-    // }
+    goToNextRow()
+    console.log('yellow matches',yellowMatches(word).yellowIndices)
+    console.log('green matches',greenMatches(word).greenIndices)
+    console.log('no matches',noMatches((word)).wrongIndices)
 }
 
 // * * * * * * * * * Matches * * * * * * * * * 
@@ -220,4 +257,17 @@ const greenMatches = (word)=>{
         }                
     }
     return {status, greenIndices,greenLetters}
+}
+
+const noMatches =(word)=>{
+ let wrongLetters =''
+ let wrongIndices = []
+
+ for (let i = 0; i < MAX_NUMBER_OF_LETTERS; i++) {
+    if(!targetWord.includes(word[i])){
+        wrongIndices.push(i)
+        wrongLetters=wrongLetters+word[i]
+    }                
+}
+  return {wrongIndices,wrongLetters}
 }
