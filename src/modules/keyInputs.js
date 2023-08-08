@@ -2,12 +2,14 @@ const keyboardClicked = document.querySelectorAll('.keyinput') // Allow click to
 const keyboardPressed = document.querySelector('body') // Allow press keys to be activated anywhere on the page
 const gridFromHTML = document.querySelectorAll('.cell') // Get all the cells of the grid
 
-// const dictionary = [
-//     'apple','gates','nylon','ureas','ahead','apods','ttttt'
-//    ]
+const dictionary = [
+    'apple','gates','nylon','ureas','ahead','apods','ttttt'
+   ]
+const targetWord = dictionary[0]
+
 let guessedWord = []
 let guessedWord_processed = ''
-let targetWord =''
+// let targetWord =''
 
 
 const getTargetWord = ()=>{
@@ -20,7 +22,7 @@ const getTargetWord = ()=>{
         })
         .catch(err => console.log(err) )
 }
-getTargetWord()
+// getTargetWord()
 
 const MAX_NUMBER_OF_LETTERS =5
 const MAX_NUMBER_OF_TRIES =6
@@ -147,49 +149,54 @@ const goToNextRow =()=>{
     guessedWord =[]
 }
 
+// * * *  * * * * Show Messages and Instructions * * * * * * * * * 
+const messages =  document.querySelector('#messages')
+
+const showMessage =(msg)=>{
+  const messageElement = document.createElement('p') 
+  messageElement.classList.add('messages')
+  messageElement.textContent = msg
+  messages.appendChild(messageElement)
+  setTimeout(()=> messages.removeChild(messageElement),1500)
+}
+
 // * * * * * * * * * Word must be 5 letters and you have only 6 tries * * * * * * * * *
 const checkIfValidGuess=(word)=>{
     if(letter_postion === MAX_NUMBER_OF_LETTERS && try_position < MAX_NUMBER_OF_TRIES-1){
         checkIfWordExists(word)
 
     }else if(letter_postion < MAX_NUMBER_OF_LETTERS){
-        // alert not enough letters
-        console.log('not enough letters')
-        alert('Not enough letters')
+        showMessage('Not enough letters')
+
     }else if(try_position >= MAX_NUMBER_OF_TRIES-1){
-        //submit answer
-        // Out of tries
-        console.log('Out of tries')
-        alert('Out of tries')
+        showMessage('Out of tries')
+
     }else{
         // inavlid
-        console.log('INVALID')
-        alert('INVALID')
+        showMessage('INVALID')
     }
 }
 
 // * * * * * * * * * Does the word exists in the dictionary * * * * * * * * *
 const checkIfWordExists =(word)=>{
  // check if word exists
- fetch(`http://localhost:1999/check?word=${word}`)
-    .then(response => response.json())
-    .then(json =>{ 
-        console.log(json) 
-        if(json ==='SUCCESS'){
-            checkCorrectness(word)
-        }else{
-            console.log('word does not exists')
-            alert('Word does not exists')
-        }
-    })
-    .catch(err => console.log(err) )
+//  fetch(`http://localhost:1999/check?word=${word}`)
+//     .then(response => response.json())
+//     .then(json =>{ 
+//         console.log(json) 
+//         if(json ==='SUCCESS'){
+//             checkCorrectness(word)
+//         }else{
+//             showMessage('word does not exists')
+//         }
+//     })
+//     .catch(err => console.log(err) )
 
-//  if(dictionary.includes(word)){
-//     checkCorrectness(word)
-//  }else{
-//      console.log('word does not exists')
-//      alert('Word does not exists')
-//  }
+ if(dictionary.includes(word)){
+    checkCorrectness(word)
+ }else{
+     showMessage('word does not exists')
+ }
 }
 
 // * * * * * * * * * How close is the guess to being correct * * * * * * * * * 
@@ -218,8 +225,7 @@ const checkCorrectness = (word)=>{
         const allMatches =basedIndices()
         addColourOnGrid(try_position,allMatches,'green','yellow')
         addColourOnKeyboard(word,'green','yellow')
-        console.log('Correct, you win')
-        alert('Correct, you win')
+        showMessage('Correct, you win')
         isGameOver = true
     } 
     goToNextRow()

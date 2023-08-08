@@ -53,6 +53,14 @@ main{
     padding: 1em;
 }
 
+.messages{
+    background-color: gainsboro;
+    color:  rgb(16, 15, 15);
+    border-radius: .25rem;
+    padding: .75rem;
+    margin: .75rem;
+}
+
 #grid{
     /* border: 2px solid chocolate; */
     width: 50%;
