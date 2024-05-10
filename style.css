@@ -64,6 +64,26 @@ header {
   border: 2px solid rgba(255, 255, 255, 0.342);
 }
 
+.grid {
+  /* border: 1px solid gainsboro; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.cell {
+  height: 60px;
+  width: 60px;
+  border: 1px solid gainsboro;
+  margin: 5px;
+}
+
+.row {
+  display: flex;
+}
+
 .modalContainer {
   position: fixed;
   top: 0;
