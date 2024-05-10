@@ -1,13 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Wordle Clone</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-	<script src="index.js"></script>
+    <section>
+      pora eveniet minus optio, qui ad enim, rem molestiae, hic adipisci odio
+      sapiente delectus fugit! Recusandae ducimus voluptas beatae voluptates est
+      dignissimos repellat inventore, ratione, qui illo quo. Animi
+      reprehenderit, laboriosam ex aperiam ratione vero dolores quasi neque
+      tempora eumlis ipsum esse. Aspernatur unde assumenda impedit illum fugit
+      sequi, architecto atibus veniam magnam ad, voluptatem reprehenderit amet
+      fugiat voluptate assumenda ab! Cupiditate aut vel ipsa exercitationem nisi
+      ea, molestiae iusto illo eos mollitia officiis? Corrupti, minima. Maiores
+      dolores assumenda aspernatur voluptate, doloribus cumque animi. Quam
+      accusantium eligendi sapiente nobis impedit voluptatum ullam asperiores,
+      fugit in quo adipisci necessitatibus itaque quia a aperiam vel libero
+      consequuntur provident maiores. Deserunt iure maiores ab fugiat labore
+      tenetur soluta sed adipisci tempora, repellendus possimus aperiam nihil
+      obcaecati quam necessitatibus perspiciatis rerum, asperiores, vitae
+      quaerat mollitia rem nam alias magnam. Explicabo tempore voluptas, iure ex
+      itaque ipsam veritatis fuga omnis praesentium modi! Sint aut illum odio
+      quidem harum dolore dolor perspiciatis quos ad soluta, nisi facere natus
+      provident necessitatibus optio nostrum, eius, error tenetur libero ipsum
+      enim temporibus dolores. Quas, praesentium? Repellendus, dolorem dolor!
+      Minima, itaque.
+    </section>
+    <section class="modalContainer">
+      <section class="modalContent">
+        <section class="closeContainer">
+          <section class="close">&#x2715;</section>
+        </section>
+
+        <section class="modalHeader">
+          <h1>How to Play</h1>
+          <p class="game-description">Guess the Wordle in 6 tries.</p>
+          <ul>
+            <li>Each guess must be a valid 5-letter word.</li>
+            <li>
+              The color of the tiles will change to show how close your guess
+              was to the word.
+            </li>
+          </ul>
+        </section>
+
+        <section class="modalBody">
+          <h3>Examples</h3>
+          <section class="example">
+            <section class="blocks">
+              <section class="block green">W</section>
+              <section class="block">E</section>
+              <section class="block">A</section>
+              <section class="block">R</section>
+              <section class="block">Y</section>
+            </section>
+            <p class="explaination">
+              <strong>W</strong> is in the word and in the correct spot.
+            </p>
+          </section>
+
+          <section class="example">
+            <section class="blocks">
+              <section class="block">P</section>
+              <section class="block yellow">I</section>
+              <section class="block">L</section>
+              <section class="block">L</section>
+              <section class="block">S</section>
+            </section>
+            <p class="explaination">
+              <strong>I</strong> is in the word but in the wrong spot.
+            </p>
+          </section>
+
+          <section class="example">
+            <section class="blocks">
+              <section class="block">V</section>
+              <section class="block">A</section>
+              <section class="block">G</section>
+              <section class="block grey">U</section>
+              <section class="block">E</section>
+            </section>
+            <p class="explaination">
+              <strong>U</strong> is not in the word in any spot.
+            </p>
+          </section>
+        </section>
+
+        <section class="modalFooter">
+          <hr />
+          <section class="loginSection">
+            <section class="logo">logo</section>
+            <section>
+              <a href="/login">Log in or create a free NYT account</a> to link
+              your stats.
+            </section>
+          </section>
+          <hr />
+          <footer>
+            A new puzzle is released daily at midnight. If you haven't already,
+            you can <a href="/signup">sign up</a> for your daily reminder email.
+          </footer>
+        </section>
+      </section>
+    </section>
+
+    <script src="index.js"></script>
   </body>
 </html>

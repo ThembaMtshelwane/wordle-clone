@@ -1,0 +1,193 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.121);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hideModal {
+  visibility: hidden;
+}
+
+.closeContainer {
+  /* border: 2px solid blue; */
+  /* width: 100%; */
+  display: flex;
+  justify-content: end;
+}
+.close {
+  /* border: 2px solid red; */
+  padding: 20px;
+  font-size: 1.5rem;
+}
+
+.close:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.modalContent {
+  /* border: 2px solid green; */
+  background-color: white;
+  overflow: scroll;
+  height: 90%;
+  width: 100%;
+}
+
+.modalHeader,
+.modalBody,
+.modalFooter {
+  /* border: 2px solid red; */
+  background-color: white;
+  margin: auto;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+.modalHeader {
+  /* border: 2px solid green; */
+  width: 70%;
+}
+
+.game-description {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+ul {
+  /* border: 2px solid; */
+  margin-left: 15px;
+  width: 90%;
+}
+
+li {
+  margin-bottom: 7px;
+}
+
+.modalBody {
+  /* border: 2px solid blue; */
+  width: 70%;
+  margin-top: 10px;
+}
+
+h3 {
+}
+.explaination {
+  margin: 5px 0px;
+  width: 90%;
+}
+
+.blocks {
+  display: flex;
+}
+
+.block {
+  border: 1px solid;
+  width: 25px;
+  height: 25px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  margin: 2px;
+  /* font-size: 1.5rem; */
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+
+.yellow {
+  background-color: rgb(200, 200, 31);
+  color: white;
+}
+
+.grey {
+  background-color: gray;
+  color: white;
+}
+
+.green {
+  background-color: rgb(17, 205, 17);
+  color: white;
+}
+
+h3 {
+  margin-bottom: 12px;
+}
+
+.example {
+  margin-bottom: 20px;
+  /* border: 2px solid red; */
+}
+
+hr {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.modalFooter {
+  /* border: 2px solid yellow; */
+  background-color: white;
+  margin: auto;
+  width: 70%;
+}
+
+.loginSection {
+  /* border: 2px solid blue; */
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  border: 2px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  margin-right: 12px;
+}
+
+footer {
+  /* border: 2px solid green; */
+  background-color: white;
+  margin: 15px 2px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 425px;
+}
+
+@media only screen and (min-width: 481px) {
+  .modalContent {
+    width: 80%;
+    max-width: 500px;
+    padding: 0px 30px;
+  }
+  .modalHeader,
+  .modalBody,
+  .modalFooter {
+    width: 100%;
+  }
+}
