@@ -14,11 +14,12 @@ body {
 }
 
 nav {
-  border-bottom: 1px solid;
+  border-bottom: 1px solid rgba(220, 220, 220, 0.304);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
+  padding-bottom: 10px;
 }
 
 .leftSection {
@@ -79,6 +80,10 @@ header {
   width: 50px;
   border: 1px solid rgba(220, 220, 220, 0.653);
   margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
 }
 
 .row {
@@ -117,6 +122,11 @@ input {
   color: gainsboro;
   border-radius: 2px;
   font-size: 1.5rem;
+}
+
+input:hover {
+  cursor: pointer;
+  transform: scale(1.08);
 }
 
 #del,
@@ -312,7 +322,7 @@ footer {
 
 @media screen and (min-width: 770px) {
   .leftSection {
-    width: 53%;
+    width: 55%;
     justify-content: space-between;
   }
   .rightSection {
@@ -329,7 +339,7 @@ footer {
     justify-content: end;
   }
   .leftSection {
-    width: 50%;
+    width: 57%;
     justify-content: space-around;
   }
   .rightSection {
