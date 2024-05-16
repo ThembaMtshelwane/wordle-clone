@@ -22,23 +22,38 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add user input to grid
-  function handleInput (value) {
-    if (letterCount >= MAX_COL) {
-      guessWord = temp.toString().replace(/,/g, '')
-      console.log(guessWord)
-      letterCount = 0
-      rowCount++
-      temp = []
-    }
-
+  function handleInput(value) {
+    // End game
     if (rowCount >= MAX_ROW) {
       return
     }
 
-    grid[rowCount][letterCount].textContent = value
-    temp.push(value)
+    // Delete letter
+    if (value === 'Del' || value === 'BACKSPACE') {
+      letterCount--
+      if (letterCount < 0) {
+        letterCount = 0
+      }
+      grid[rowCount][letterCount].textContent = ''
+      return
+    }
 
-    letterCount++
+    // Enter guess
+    if (value.toUpperCase() === 'ENTER' && letterCount >= MAX_COL) {
+      console.log('next level')
+      guessWord = temp.toString().replace(/,/g, '')
+      letterCount = 0
+      rowCount++
+      temp = []
+      return
+    }
+
+    // Enter Letter
+    if (/^[A-Z]$/.test(value) && letterCount < MAX_COL) {
+      grid[rowCount][letterCount].textContent = value
+      temp.push(value)
+      letterCount++
+    }
   }
 
   // Handle clicks
@@ -49,11 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Handle press
-  function handleKeyDown (e) {
+  function handleKeyDown(e) {
     const key = e.key.toUpperCase()
-    if (/^[A-Z]$/.test(key)) {
-      handleInput(key)
-    }
+
+    // if (/^[A-Z]$/.test(key)) {
+    handleInput(key)
+    // }
   }
   document.addEventListener('keydown', handleKeyDown)
 
