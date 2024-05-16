@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const MAX_ROW = 6
   const MAX_COL = 5
   let count = 0
+  let guessWord = ''
+  let temp = []
 
   // Gird
   for (let row = 0; row < MAX_ROW; row++) {
@@ -18,11 +20,15 @@ document.addEventListener('DOMContentLoaded', function () {
       count++
     }
   }
+
   // Add user input to grid
   function handleInput (value) {
     if (letterCount >= MAX_COL) {
+      guessWord = temp.toString().replace(/,/g, '')
+      console.log(guessWord)
       letterCount = 0
       rowCount++
+      temp = []
     }
 
     if (rowCount >= MAX_ROW) {
@@ -30,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     grid[rowCount][letterCount].textContent = value
+    temp.push(value)
+
     letterCount++
   }
 
@@ -43,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Handle press
   function handleKeyDown (e) {
     const key = e.key.toUpperCase()
-    if (count < 30 && /^[A-Z]$/.test(key)) {
+    if (/^[A-Z]$/.test(key)) {
       handleInput(key)
     }
   }
