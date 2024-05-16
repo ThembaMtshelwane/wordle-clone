@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const MAX_ROW = 6
   const MAX_COL = 5
   let count = 0
-  let guessWord = ''
+  // const guessWord = ''
   let temp = []
 
   // Gird
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add user input to grid
-  function handleInput(value) {
+  function handleInput (value) {
     // End game
     if (rowCount >= MAX_ROW) {
       return
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Enter guess
     if (value.toUpperCase() === 'ENTER' && letterCount >= MAX_COL) {
       console.log('next level')
-      guessWord = temp.toString().replace(/,/g, '')
+      // guessWord = temp.toString().replace(/,/g, '')
       letterCount = 0
       rowCount++
       temp = []
@@ -56,22 +56,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Handle press
+  function handleKeyDown (e) {
+    const key = e.key.toUpperCase()
+    handleInput(key)
+  }
+
+  document.addEventListener('keydown', handleKeyDown)
+
   // Handle clicks
   for (let index = 0; index < keys.length; index++) {
     keys[index].addEventListener('click', function () {
       handleInput(keys[index].value)
     })
   }
-
-  // Handle press
-  function handleKeyDown(e) {
-    const key = e.key.toUpperCase()
-
-    // if (/^[A-Z]$/.test(key)) {
-    handleInput(key)
-    // }
-  }
-  document.addEventListener('keydown', handleKeyDown)
 
   closeSection.addEventListener('click', function () {
     modalContainer.classList.add('hideModal')
