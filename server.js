@@ -1,8 +1,6 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-let cachedWord = null
-let lastFetchedDate = null
 require('dotenv').config()
 
 const PORT = 3000

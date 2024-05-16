@@ -87,6 +87,18 @@ header {
   border-radius: 2px;
 }
 
+.yellow {
+  background-color: yellow;
+}
+
+.grey-1 {
+  background-color: #464545;
+}
+
+.green {
+  background-color: green;
+}
+
 .row {
   display: flex;
 }
