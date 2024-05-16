@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add user input to grid
-  function handleInput (value) {
+  function handleInput(value) {
     // End game
     if (rowCount >= MAX_ROW) {
       return
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Handle press
-  function handleKeyDown (e) {
+  function handleKeyDown(e) {
     const key = e.key.toUpperCase()
     handleInput(key)
   }
