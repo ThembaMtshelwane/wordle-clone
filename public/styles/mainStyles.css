@@ -5,7 +5,8 @@
   padding: 0;
   font-size: 16px;
   box-sizing: border-box;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
 }
 
 body {
@@ -23,11 +24,7 @@ nav {
 }
 
 .leftSection {
-  /* border: 2px solid blue; */
   display: flex;
-  /* justify-content: space-between; */
-  /* align-items: center; */
-  /* min-width: 120px; */
   font-weight: 900;
 }
 
@@ -154,7 +151,7 @@ input:hover {
   height: 100vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.121);
-  color: black;
+  /* color: black; */
 
   display: flex;
   align-items: center;
@@ -184,7 +181,7 @@ input:hover {
 
 .modalContent {
   /* border: 2px solid green; */
-  background-color: white;
+  background-color: rgb(27, 27, 27);
   overflow: scroll;
   height: 90%;
   width: 100%;
@@ -194,7 +191,7 @@ input:hover {
 .modalBody,
 .modalFooter {
   /* border: 2px solid red; */
-  background-color: white;
+  background-color: rgb(27, 27, 27);
   margin: auto;
 }
 
@@ -288,14 +285,14 @@ hr {
 
 .modalFooter {
   /* border: 2px solid yellow; */
-  background-color: white;
+  background-color: rgb(27, 27, 27);
   margin: auto;
   width: 70%;
 }
 
 .loginSection {
   /* border: 2px solid blue; */
-  background-color: white;
+  background-color: rgb(27, 27, 27);
   display: flex;
   align-items: center;
 }
@@ -313,7 +310,7 @@ hr {
 
 footer {
   /* border: 2px solid green; */
-  background-color: white;
+  background-color: rgb(27, 27, 27);
   margin: 15px 2px;
   margin-bottom: 30px;
   width: 100%;
