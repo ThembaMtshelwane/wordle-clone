@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const closeSection = document.querySelector('.close')
+  const openModal = document.querySelector('.modalIcon')
   const modalContainer = document.querySelector('.modalContainer')
   const keys = document.getElementsByTagName('input')
   const cells = document.getElementsByClassName('cell')
@@ -117,5 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   closeSection.addEventListener('click', function () {
     modalContainer.classList.add('hideModal')
+  })
+  openModal.addEventListener('click', function () {
+    modalContainer.classList.remove('hideModal')
   })
 })
