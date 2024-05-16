@@ -3,14 +3,34 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalContainer = document.querySelector('.modalContainer')
   const keys = document.getElementsByTagName('input')
   const cells = document.getElementsByClassName('cell')
+  let rowCount = 0
+  let letterCount = 0
+  const grid = [[]]
+  const MAX_ROW = 6
+  const MAX_COL = 5
   let count = 0
 
-  // Add user input to grid
-  function handleInput (value) {
-    if (count < 30) {
-      cells[count].textContent = value
+  // Gird
+  for (let row = 0; row < MAX_ROW; row++) {
+    grid[row] = []
+    for (let col = 0; col < MAX_COL; col++) {
+      grid[row][col] = cells[count]
       count++
     }
+  }
+  // Add user input to grid
+  function handleInput (value) {
+    if (letterCount >= MAX_COL) {
+      letterCount = 0
+      rowCount++
+    }
+
+    if (rowCount >= MAX_ROW) {
+      return
+    }
+
+    grid[rowCount][letterCount].textContent = value
+    letterCount++
   }
 
   // Handle clicks
