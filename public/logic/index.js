@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   const keys = document.getElementsByTagName('input')
   const cells = document.getElementsByClassName('cell')
+  const messageContainer = document.querySelector('.progressContainer')
   const grid = [[]]
 
   let rowCount = 0
@@ -99,8 +100,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     // Enter guess
-    if (value === 'ENTER' && letterCount >= MAX_COL) {
+    if (value === 'ENTER') {
       guessWord = temp.toString().replace(/,/g, '')
+      console.log(guessWord.length)
+      if (guessWord.length < MAX_COL) {
+        displayProgressMessage('Not enough letters')
+        return
+      }
       if (isGuessWordValid(guessWord)) {
         checkWord(guessWord, rowCount)
         letterCount = 0
@@ -108,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         temp = []
         return
       } else {
-        // show error : Word not in the list
+        displayProgressMessage('Not in word list')
       }
     }
 
@@ -145,6 +151,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const cell = grid[row][w1]
         addColour(cell, w1, 'green')
       }
+      displayProgressMessage('Correct, well done')
       rowCount = MAX_ROW // end game
       return
     }
@@ -177,6 +184,17 @@ document.addEventListener('DOMContentLoaded', async function () {
       cell.classList.add(colour)
       keyboardColourChange(colour, cell)
     }, index * TILE_FLIP_TIMER)
+  }
+
+  function displayProgressMessage(text) {
+    const message = document.createElement('p')
+    message.textContent = text
+    message.classList.add('progressMessage')
+    messageContainer.appendChild(message)
+    setTimeout(() => {
+      message.classList.remove('progressMessage')
+      message.textContent = ''
+    }, 2000)
   }
 
   closeSection.addEventListener('click', function () {
