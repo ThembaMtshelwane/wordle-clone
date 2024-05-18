@@ -83,8 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (targetWord === word) {
       for (let w1 = 0; w1 < word.length; w1++) {
         const cell = grid[row][w1]
-        cell.classList.add('green')
-        keyboardColourChange('green', cell)
+        addColour(cell, w1, 'green')
       }
       rowCount = MAX_ROW // end game
       return
@@ -94,16 +93,13 @@ document.addEventListener('DOMContentLoaded', function () {
       const cell = grid[row][w1]
       if (targetWord.includes(word[w1])) {
         // check if letter exists
-        cell.classList.add('yellow')
-        keyboardColourChange('yellow', cell)
+        addColour(cell, w1, 'yellow')
       } else {
-        cell.classList.add('grey-1')
-        keyboardColourChange('grey-1', cell)
+        addColour(cell, w1, 'grey')
       }
       // check if in correct position and overwrite yellow
       if (word[w1] === targetWord[w1]) {
-        cell.classList.add('green')
-        keyboardColourChange('green', cell)
+        addColour(cell, w1, 'green')
       }
     }
   }
@@ -114,6 +110,13 @@ document.addEventListener('DOMContentLoaded', function () {
         keys[index].classList.add(colour)
       }
     }
+  }
+
+  function addColour(cell, index, colour) {
+    setTimeout(() => {
+      cell.classList.add(colour)
+      keyboardColourChange(colour, cell)
+    }, index * 400)
   }
 
   closeSection.addEventListener('click', function () {
