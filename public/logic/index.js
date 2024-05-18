@@ -2,18 +2,23 @@ document.addEventListener('DOMContentLoaded', async function () {
   const closeSection = document.querySelector('.close')
   const openModal = document.querySelector('.modalIcon')
   const modalContainer = document.querySelector('.modalContainer')
+
   const keys = document.getElementsByTagName('input')
   const cells = document.getElementsByClassName('cell')
+  const grid = [[]]
+
   let rowCount = 0
   let letterCount = 0
-  const grid = [[]]
+  let count = 0
+
   const MAX_ROW = 6
   const MAX_COL = 5
-  let count = 0
+  const TILE_FLIP_TIMER = 400
+
   let guessWord = ''
-  let temp = []
-  const dictionary = ['hello', 'apple', 'nylon', 'socks']
   let targetWord = ''
+  let words = []
+  let temp = []
 
   // Get word of the day
   async function wordOfTheDay() {
@@ -26,6 +31,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     return await response.json()
   }
 
+  // Get all words
+  async function allWords() {
+    const response = await fetch('/all-words', {
+      method: 'GET',
+    })
+    if (!response.ok) {
+      throw new Error(`Failed to fetch all words: ${response.statusText}`)
+    }
+    return await response.json()
+  }
+
   async function getAndDisplayWordOfTheDay() {
     try {
       const res = await wordOfTheDay()
@@ -34,14 +50,25 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.error(error)
     }
   }
+
+  async function getAndDisplayAllWords() {
+    try {
+      const res = await allWords()
+      words = res.words
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   getAndDisplayWordOfTheDay()
+  getAndDisplayAllWords()
 
   // Check if guessWord is valid
   function isGuessWordValid(guess) {
-    // return true or false
-
-    return true
+    return words.includes(guess.toLowerCase())
   }
+
+  console.log('target ww', targetWord)
 
   // Gird
   for (let row = 0; row < MAX_ROW; row++) {
@@ -111,8 +138,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Check Win Conditions
   function checkWord(word, row) {
-    console.log('tar', targetWord)
-    console.log('wrd', word)
+    console.log('target', targetWord)
     // Perfect match,
     if (targetWord === word) {
       for (let w1 = 0; w1 < word.length; w1++) {
@@ -150,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     setTimeout(() => {
       cell.classList.add(colour)
       keyboardColourChange(colour, cell)
-    }, index * 400)
+    }, index * TILE_FLIP_TIMER)
   }
 
   closeSection.addEventListener('click', function () {

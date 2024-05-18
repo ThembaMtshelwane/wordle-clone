@@ -21,14 +21,40 @@ app.get('/word-of-the-day', async (req, res) => {
       }
     )
     if (response.ok) {
-        const text = await response.text()
-        const wordsArray = text.split('\n').map((word) => word.trim())
+      const text = await response.text()
+      const wordsArray = text.split('\n').map((word) => word.trim())
 
-        const wordOfTheDay =
-          wordsArray[Math.floor(Math.random() * wordsArray.length)]
-        const cleanedWord = wordOfTheDay.replace(/["\\,]/g, '')
+      const wordOfTheDay =
+        wordsArray[Math.floor(Math.random() * wordsArray.length)]
+      const cleanedWord = wordOfTheDay.replace(/["\\,]/g, '')
 
-        res.json({ word: cleanedWord })
+      res.json({ word: cleanedWord })
+    } else {
+      res.status(response.status).send(response.statusText)
+    }
+  } catch (error) {
+    res.status(500).send('Internal Server Error')
+  }
+})
+
+app.get('/all-words', async (req, res) => {
+  try {
+    const response = await fetch(
+      'https://gist.githubusercontent.com/slushman/34e60d6bc479ac8fc698df8c226e4264/raw/',
+      {
+        method: 'GET',
+      }
+    )
+    if (response.ok) {
+      const text = await response.text()
+      const data = []
+      text.split('\n').forEach((word) => {
+        const cleanWord = word.replace(/[\[\],\"]/g, '')
+        if (cleanWord.trim() !== '') {
+          data.push(cleanWord.trim())
+        }
+      })
+      res.json({ words: data })
     } else {
       res.status(response.status).send(response.statusText)
     }
