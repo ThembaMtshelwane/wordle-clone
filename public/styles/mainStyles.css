@@ -75,8 +75,8 @@ header {
 .cell {
   height: 50px;
   width: 50px;
-  border: 1px solid rgba(220, 220, 220, 0.326);
-  margin: 4px;
+  border: 2px solid rgba(220, 220, 220, 0.326);
+  margin: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,16 +84,50 @@ header {
   border-radius: 2px;
 }
 
-.yellow {
-  background-color: yellow;
+@keyframes inputShake {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.grey{
-  background-color: #464545;
+.inputShake {
+  border: 2px solid rgba(220, 220, 220, 0.326);
+  animation: inputShake 0.5s ease;
+}
+
+@keyframes blockFlip {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  25%,
+  75% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+}
+
+.yellow {
+  animation: blockFlip 0.5s ease;
+  background-color: rgb(200, 200, 31);
+}
+
+.grey {
+  animation: blockFlip 0.3s ease;
+  background-color: gray;
 }
 
 .green {
-  /* background-color: green; */
+  animation: blockFlip 0.5s ease;
+  background-color: rgb(17, 205, 17);
 }
 
 .row {
@@ -126,12 +160,12 @@ input {
   /* width: 30px; */
   width: 50px;
   height: 60px;
-  background-color: #717171;
+  background-color: #414141;
   border: none;
   margin: 3px;
   color: gainsboro;
-  border-radius: 2px;
-  font-size: 1.5rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
 }
 
 input:hover {

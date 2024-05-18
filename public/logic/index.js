@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         letterCount = 0
       }
       grid[rowCount][letterCount].textContent = ''
+      grid[rowCount][letterCount].classList.remove('inputShake')
       temp.pop()
       return
     }
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Enter Letter
     if (/^[A-Z]$/.test(value) && letterCount < MAX_COL) {
       grid[rowCount][letterCount].textContent = value
+      grid[rowCount][letterCount].classList.add('inputShake')
       temp.push(value)
       letterCount++
     }

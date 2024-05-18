@@ -90,8 +90,6 @@ li {
   margin-top: 10px;
 }
 
-h3 {
-}
 .explaination {
   margin: 5px 0px;
   width: 90%;
@@ -112,33 +110,6 @@ h3 {
   font-weight: 900;
   margin: 2px;
   /* font-size: 1.5rem; */
-}
-
-@keyframes blockFlip {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-
-.yellow {
-  animation: blockFlip 0.5s ease;
-  background-color: rgb(200, 200, 31);
-}
-
-.grey {
-  animation: blockFlip 0.3s ease;
-  background-color: gray;
-}
-
-.green {
-  animation: blockFlip 0.5s ease;
-  background-color: rgb(17, 205, 17);
 }
 
 h3 {
