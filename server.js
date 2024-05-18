@@ -13,19 +13,27 @@ app.get('/game', (req, res) => {
 })
 
 app.get('/word-of-the-day', async (req, res) => {
-  const apiKey = process.env.WORDNIK_API_KEY
-  const url = `https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=noun&minLength=5&maxLength=5&limit=1&api_key=${apiKey}`
-
   try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error('Network response was not ok')
+    const response = await fetch(
+      'https://gist.githubusercontent.com/slushman/34e60d6bc479ac8fc698df8c226e4264/raw/',
+      {
+        method: 'GET',
+      }
+    )
+    if (response.ok) {
+        const text = await response.text()
+        const wordsArray = text.split('\n').map((word) => word.trim())
+
+        const wordOfTheDay =
+          wordsArray[Math.floor(Math.random() * wordsArray.length)]
+        const cleanedWord = wordOfTheDay.replace(/["\\,]/g, '')
+
+        res.json({ word: cleanedWord })
+    } else {
+      res.status(response.status).send(response.statusText)
     }
-    const data = await response.json()
-    res.json(data)
   } catch (error) {
-    console.error('There was a problem with the fetch operation:', error)
-    res.status(500).json({ error: 'Failed to fetch word from Wordnik' })
+    res.status(500).send('Internal Server Error')
   }
 })
 

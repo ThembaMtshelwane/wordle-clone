@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
   const closeSection = document.querySelector('.close')
   const openModal = document.querySelector('.modalIcon')
   const modalContainer = document.querySelector('.modalContainer')
@@ -13,7 +13,35 @@ document.addEventListener('DOMContentLoaded', function () {
   let guessWord = ''
   let temp = []
   const dictionary = ['hello', 'apple', 'nylon', 'socks']
-  const targetWord = dictionary[2].toUpperCase()
+  let targetWord = ''
+
+  // Get word of the day
+  async function wordOfTheDay() {
+    const response = await fetch('/word-of-the-day', {
+      method: 'GET',
+    })
+    if (!response.ok) {
+      throw new Error(`Failed to fetch word of the day: ${response.statusText}`)
+    }
+    return await response.json()
+  }
+
+  async function getAndDisplayWordOfTheDay() {
+    try {
+      const res = await wordOfTheDay()
+      targetWord = res.word.toUpperCase()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  getAndDisplayWordOfTheDay()
+
+  // Check if guessWord is valid
+  function isGuessWordValid(guess) {
+    // return true or false
+
+    return true
+  }
 
   // Gird
   for (let row = 0; row < MAX_ROW; row++) {
@@ -45,14 +73,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Enter guess
     if (value === 'ENTER' && letterCount >= MAX_COL) {
-      console.log('next level')
-      console.log('target', targetWord)
       guessWord = temp.toString().replace(/,/g, '')
-      checkWord(guessWord, rowCount)
-      letterCount = 0
-      rowCount++
-      temp = []
-      return
+      if (isGuessWordValid(guessWord)) {
+        checkWord(guessWord, rowCount)
+        letterCount = 0
+        rowCount++
+        temp = []
+        return
+      } else {
+        // show error : Word not in the list
+      }
     }
 
     // Enter Letter
@@ -81,6 +111,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Check Win Conditions
   function checkWord(word, row) {
+    console.log('tar', targetWord)
+    console.log('wrd', word)
     // Perfect match,
     if (targetWord === word) {
       for (let w1 = 0; w1 < word.length; w1++) {
