@@ -8,6 +8,10 @@ const PORT = 3000
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/index.html'))
+})
+
 app.get('/game', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/game.html'))
 })
