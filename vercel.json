@@ -1,0 +1,13 @@
+{
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "public/**/*", "use": "@vercel/static" },
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/game", "dest": "/public/pages/game.html" },
+    { "src": "/api/all-words", "dest": "/api/all-words.js" },
+    { "src": "/api/word-of-the-day", "dest": "/api/word-of-the-day.js" }
+  ]
+}
