@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     return words.includes(guess.toLowerCase())
   }
 
-  console.log('target ww', targetWord)
+  // console.log('target ww', targetWord)
 
   // Gird
   for (let row = 0; row < MAX_ROW; row++) {
@@ -84,6 +84,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   function handleInput(value) {
     // End game
     if (rowCount >= MAX_ROW) {
+      const message = document.createElement('p')
+      message.textContent = targetWord
+      message.classList.add('progressMessage')
+      messageContainer.appendChild(message)
       return
     }
 
@@ -102,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Enter guess
     if (value === 'ENTER') {
       guessWord = temp.toString().replace(/,/g, '')
-      console.log(guessWord.length)
+      // console.log(guessWord.length)
       if (guessWord.length < MAX_COL) {
         displayProgressMessage('Not enough letters')
         return
@@ -144,7 +148,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Check Win Conditions
   function checkWord(word, row) {
-    console.log('target', targetWord)
+    // console.log('target', targetWord)
     // Perfect match,
     if (targetWord === word) {
       for (let w1 = 0; w1 < word.length; w1++) {

@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 
 app.get('/game', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/pages/game.html'))
+  res.sendFile(path.join(__dirname, '/public/game.html'))
 })
 
 app.get('/word-of-the-day', async (req, res) => {
